@@ -1,38 +1,42 @@
 class Solution {
 public:
-    void sortColors(vector<int>& nums) {
-        int pre, end, i;
-        int tmp;
-        if(0 == nums.size())
+    string addBinary(string a, string b) {
+        int i = a.length()-1;
+        int j = b.length()-1;
+        int flag = 0;
+        int num;
+        string ret;
+        while(i >= 0 || j >= 0)
         {
-            return;
+            if(i >= 0 && j >= 0)
+            {
+                num = a[i] -'0' + b[j] -'0' + flag;
+            }
+            else if(i >= 0)
+            {
+                num = a[i] -'0' + flag;
+            }
+            else
+            {
+                num = b[j] -'0' + flag;
+            }
+            if(num >= 2)
+            {
+                num = num - 2;
+                flag = 1;
+            }
+            else
+            {
+                flag = 0;
+            }
+            ret.insert(ret.begin(), char(num + '0'));
+            i--;
+            j--;
         }
-        pre = 0;
-        end = nums.size() - 1;
-        for(i = 0; i <= end; i++)
+        if(1 == flag)
         {
-            if(0 == nums[i])
-            {
-                if(pre != i)
-                {
-                    //不等的情况下i不能往前移，故i先减个1
-                    nums[i] = nums[pre];
-                    nums[pre] = 0;
-                    i--;
-                }
-                pre++;
-            }
-            else if(2 == nums[i])
-            {
-                if(end != i)
-                {
-                    nums[i] = nums[end];
-                    nums[end] = 2;
-                    i--;
-                }
-                end--;
-            }
+            ret.insert(ret.begin(), '1');
         }
-        
+        return ret;
     }
 };
